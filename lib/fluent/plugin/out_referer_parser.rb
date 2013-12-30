@@ -72,7 +72,7 @@ class Fluent::RefererParserOutput < Fluent::Output
         parameters = CGI.parse(referer.uri.query)
         input_encoding = parameters['ie'][0] || parameters['ei'][0]
         begin
-          search_term = search_term.force_encoding(input_encoding).encode('utf-8') if input_encoding && /utf-?8/i !~ input_encoding
+          search_term = search_term.force_encoding(input_encoding).encode('utf-8') if input_encoding && /\Autf-?8\z/i !~ input_encoding
         rescue
           $log.error('invalid referer: ' + referer.uri.to_s)
         end
