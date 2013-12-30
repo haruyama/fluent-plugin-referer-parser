@@ -10,7 +10,6 @@ class Fluent::RefererParserOutput < Fluent::Output
 
   config_param :key_name, :string
 
-  config_param :merge_referer_info,  :bool,   default: false
   config_param :out_key_known,       :string, default: 'referer_known'
   config_param :out_key_referer,     :string, default: 'referer_referer'
   config_param :out_key_search_term, :string, default: 'referer_search_term'
