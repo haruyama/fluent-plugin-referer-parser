@@ -17,7 +17,7 @@ To add referer-parser result into matched messages:
       add_prefix merged
     </match>
 
-Output messages with tag 'merged.**' has 'referer\_known', 'referer\_referer' and 'referer\_search\_term' attributes. If you want to change attribute names, write configurations as below:
+Output messages with tag 'merged.**' has 'referer_known', 'referer_referer' and 'referer_search_term' attributes. If you want to change attribute names, write configurations as below:
 
     <match input.**>
       type referer_parser
@@ -26,9 +26,13 @@ Output messages with tag 'merged.**' has 'referer\_known', 'referer\_referer' an
       add_prefix merged
       out_key_known        ref_known
       out_key_referer      ref_referer
+      out_key_host         ref_host
       out_key_search_term  ref_search_term
     </match>
 
+If you want to use your own referers definition, you can use 'referers_yaml' attribute.
+
+If you want to convert search_term's encoding to UTF-8 for specific hosts, you can use 'encodings_yaml' attribute.
 
 ## Copyright
 
