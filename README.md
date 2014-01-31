@@ -31,8 +31,9 @@ Output messages with tag 'merged.**' has 'referer_known', 'referer_referer' and 
     </match>
 
 If you want to use your own referers definition, you can use 'referers_yaml' attribute.
+'referers_yaml' should be referers.yaml format of [snowplow/referer-parser](https://github.com/snowplow/referer-parser).
 
-If you want to convert search_term's encoding to UTF-8 for specific hosts, you can use 'encodings_yaml' attribute.
+* [Sample](test/data/referers.yaml)
 
 ## Copyright
 
