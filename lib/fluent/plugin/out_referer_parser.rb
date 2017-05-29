@@ -82,7 +82,7 @@ class Fluent::RefererParserOutput < Fluent::Output
         begin
           search_term = search_term.force_encoding(input_encoding).encode('utf-8') if input_encoding && /\Autf-?8\z/i !~ input_encoding
         rescue
-          $log.error('invalid referer: ' + @referer_parser.uri.to_s)
+          log.error('invalid referer: ' + @referer_parser.uri.to_s)
         end
         record.merge!(
           @out_key_known       => true,
