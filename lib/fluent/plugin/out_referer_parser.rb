@@ -25,7 +25,11 @@ class Fluent::RefererParserOutput < Fluent::Output
   def configure(conf)
     super
 
-    @referer_parser = RefererParser::Referer.new('http://example.org/', @referers_yaml)
+    @referer_parser = if @referers_yaml
+                        RefererParser::Parser.new(@referers_yaml)
+                      else
+                        RefererParser::Parser.new
+                      end
 
     if @encodings_yaml
       @encodings = YAML.load_file(@encodings_yaml)
@@ -69,29 +73,31 @@ class Fluent::RefererParserOutput < Fluent::Output
     tag = tag_mangle(tag)
     es.each do |time, record|
       is_valid = true
-      begin
-        @referer_parser.parse(record[@key_name])
-      rescue
-        is_valid = false
-      end
-      if is_valid && @referer_parser.known?
-        search_term = @referer_parser.search_term
-        host = @referer_parser.uri.host
-        parameters = CGI.parse(@referer_parser.uri.query)
+      parsed = begin
+                 @referer_parser.parse(record[@key_name])
+               rescue
+                 is_valid = false
+                 {}
+               end
+      if is_valid && parsed[:known]
+        search_term = parsed[:term]
+        uri = URI.parse(parsed[:uri])
+        host = uri.host
+        parameters = CGI.parse(uri.query)
         input_encoding = @encodings[host] || parameters['ie'][0] || parameters['ei'][0]
         begin
           search_term = search_term.force_encoding(input_encoding).encode('utf-8') if input_encoding && /\Autf-?8\z/i !~ input_encoding
         rescue
-          log.error('invalid referer: ' + @referer_parser.uri.to_s)
+          log.error('invalid referer: ' + uri.to_s)
         end
         record.merge!(
           @out_key_known       => true,
-          @out_key_referer     => @referer_parser.referer,
+          @out_key_referer     => parsed[:source],
           @out_key_host        => host,
           @out_key_search_term => search_term
         )
       else
-        record.merge!(@out_key_known => false)
+        record.merge[@out_key_known] = false
       end
       router.emit(tag, time, record)
     end
