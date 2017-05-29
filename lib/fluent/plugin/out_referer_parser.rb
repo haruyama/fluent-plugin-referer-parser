@@ -97,7 +97,7 @@ class Fluent::RefererParserOutput < Fluent::Output
           @out_key_search_term => search_term
         )
       else
-        record.merge[@out_key_known] = false
+        record[@out_key_known] = false
       end
       router.emit(tag, time, record)
     end
