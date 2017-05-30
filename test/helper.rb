@@ -22,7 +22,5 @@ unless ENV.key?('VERBOSE')
   $log = nulllogger
 end
 
-require 'fluent/plugin/out_referer_parser'
-
 class Test::Unit::TestCase
 end

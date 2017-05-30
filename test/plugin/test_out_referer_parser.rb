@@ -1,4 +1,5 @@
 require 'helper'
+require 'fluent/plugin/out_referer_parser'
 
 # RefererParserOutput test
 class Fluent::RefererParserOutputTest < Test::Unit::TestCase
