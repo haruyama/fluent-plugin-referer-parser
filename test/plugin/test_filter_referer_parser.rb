@@ -1,7 +1,8 @@
 require 'helper'
+require 'fluent/test/driver/filter'
 require 'fluent/plugin/filter_referer_parser'
 
-class Fluent::RefererParserFilterTest < Test::Unit::TestCase
+class RefererParserFilterTest < Test::Unit::TestCase
   # through & merge
   CONFIG1 = %(
     key_name referer
@@ -28,20 +29,19 @@ class Fluent::RefererParserFilterTest < Test::Unit::TestCase
     Fluent::Test.setup
   end
 
-  def create_driver(conf = CONFIG1, tag = 'test')
-    Fluent::Test::FilterTestDriver.new(Fluent::RefererParserFilter, tag).configure(conf)
+  def create_driver(conf = CONFIG1)
+    Fluent::Test::Driver::Filter.new(Fluent::Plugin::RefererParserFilter).configure(conf)
   end
 
   def filter(config, messages)
     d = create_driver(config)
     time = Time.parse('2012-07-20 16:40:30').to_i
-    d.run do
+    d.run(default_tag: 'test') do
       messages.each do |message|
-        d.emit(message, time)
+        d.feed(time, message)
       end
     end
-    filtered = d.filtered_as_array
-    filtered.map {|m| m[2] }
+    d.filtered_records
   end
 
   sub_test_case 'configure' do

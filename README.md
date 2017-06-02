@@ -5,6 +5,13 @@
 'fluent-plugin-referer-parser' is a Fluentd plugin to parse Referer strings, based on [tagomoris/fluent-plugin-woothee](https://github.com/tagomoris/fluent-plugin-woothee).
 'fluent-plugin-referer-parser' uses [snowplow/referer-parser](https://github.com/snowplow/referer-parser).
 
+## Requirements
+
+| fluent-plugin-referer-parser | fluentd     | ruby   |
+|------------------------------|-------------|--------|
+| >= 0.1.0                     | >= v0.14.15 | >= 2.1 |
+| < 0.1.0                      | >= v0.12.0  | >= 1.9 |
+
 ## Configuration
 
 To add referer-parser result into matched messages:
