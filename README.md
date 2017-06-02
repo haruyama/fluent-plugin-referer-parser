@@ -1,29 +1,24 @@
 # fluent-plugin-referer-parser, a plugin for [Fluentd](http://fluentd.org)
 
-## RefererParserOutput
+## RefererParserFilter
 
 'fluent-plugin-referer-parser' is a Fluentd plugin to parse Referer strings, based on [tagomoris/fluent-plugin-woothee](https://github.com/tagomoris/fluent-plugin-woothee).
 'fluent-plugin-referer-parser' uses [snowplow/referer-parser](https://github.com/snowplow/referer-parser).
-
 
 ## Configuration
 
 To add referer-parser result into matched messages:
 
-    <match input.**>
+    <filter>
       @type referer_parser
       key_name referer
-      remove_prefix input
-      add_prefix merged
     </match>
 
 Output messages with tag 'merged.**' has 'referer_known', 'referer_referer' and 'referer_search_term' attributes. If you want to change attribute names, write configurations as below:
 
-    <match input.**>
+    <filter>
       @type referer_parser
       key_name ref
-      remove_prefix input
-      add_prefix merged
       out_key_known        ref_known
       out_key_referer      ref_referer
       out_key_host         ref_host
