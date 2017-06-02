@@ -4,7 +4,7 @@ require 'English'
 Gem::Specification.new do |gem|
   gem.name          = 'fluent-plugin-referer-parser'
   gem.version       = '0.0.10'
-  gem.authors       = ['TAGOMORI Satoshi', 'HARUYAMA Seigo']
+  gem.authors       = ['HARUYAMA Seigo']
   gem.email         = ['haruyama@unixuser.org']
   gem.description   = %q(parsing by referer-parser. See: https://github.com/snowplow/referer-parser)
   gem.summary       = %q(Fluentd plugin to parse UserAgent strings)
