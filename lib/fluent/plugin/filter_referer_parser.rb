@@ -2,7 +2,9 @@ require 'cgi'
 require 'yaml'
 require 'referer-parser'
 
-class Fluent::RefererParserFilter < Fluent::Filter
+require 'fluent/plugin/input'
+
+class Fluent::Plugin::RefererParserFilter < Fluent::Plugin::Filter
   Fluent::Plugin.register_filter('referer_parser', self)
 
   config_param :key_name,       :string
