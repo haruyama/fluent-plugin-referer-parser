@@ -4,7 +4,7 @@ require 'English'
 
 Gem::Specification.new do |gem|
   gem.name          = 'fluent-plugin-referer-parser'
-  gem.version       = '0.1.0'
+  gem.version       = '0.1.1'
   gem.authors       = ['HARUYAMA Seigo']
   gem.email         = ['haruyama@unixuser.org']
   gem.description   = 'parsing by referer-parser. See: https://github.com/snowplow/referer-parser'
