@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+
 require 'English'
 
 Gem::Specification.new do |gem|
@@ -6,14 +7,14 @@ Gem::Specification.new do |gem|
   gem.version       = '0.1.0'
   gem.authors       = ['HARUYAMA Seigo']
   gem.email         = ['haruyama@unixuser.org']
-  gem.description   = %q(parsing by referer-parser. See: https://github.com/snowplow/referer-parser)
-  gem.summary       = %q(Fluentd plugin to parse Referer strings)
+  gem.description   = 'parsing by referer-parser. See: https://github.com/snowplow/referer-parser'
+  gem.summary       = 'Fluentd plugin to parse Referer strings'
   gem.homepage      = 'https://github.com/haruyama/fluent-plugin-referer-parser'
   gem.license       = 'Apache-2.0'
 
   gem.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
-  gem.executables   = gem.files.grep(/\Abin\//).map { |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(/\A(test|spec|features)\//)
+  gem.executables   = gem.files.grep(%r{\Abin/}).map { |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{\A(test|spec|features)/})
   gem.require_paths = ['lib']
 
   gem.add_development_dependency 'rake'
