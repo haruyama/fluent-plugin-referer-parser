@@ -1,5 +1,7 @@
 # fluent-plugin-referer-parser, a plugin for [Fluentd](http://fluentd.org)
 
+[![Build Status](https://travis-ci.org/haruyama/fluent-plugin-referer-parser.svg?branch=master)](https://travis-ci.org/haruyama/fluent-plugin-referer-parser)
+
 ## RefererParserFilter
 
 'fluent-plugin-referer-parser' is a Fluentd plugin to parse Referer strings, based on [tagomoris/fluent-plugin-woothee](https://github.com/tagomoris/fluent-plugin-woothee).
