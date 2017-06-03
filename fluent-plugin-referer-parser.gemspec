@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ['HARUYAMA Seigo']
   gem.email         = ['haruyama@unixuser.org']
   gem.description   = %q(parsing by referer-parser. See: https://github.com/snowplow/referer-parser)
-  gem.summary       = %q(Fluentd plugin to parse UserAgent strings)
+  gem.summary       = %q(Fluentd plugin to parse Referer strings)
   gem.homepage      = 'https://github.com/haruyama/fluent-plugin-referer-parser'
   gem.license       = 'Apache-2.0'
 

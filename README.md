@@ -1,5 +1,7 @@
 # fluent-plugin-referer-parser, a plugin for [Fluentd](http://fluentd.org)
 
+[![Build Status](https://travis-ci.org/haruyama/fluent-plugin-referer-parser.svg?branch=master)](https://travis-ci.org/haruyama/fluent-plugin-referer-parser)
+
 ## RefererParserFilter
 
 'fluent-plugin-referer-parser' is a Fluentd plugin to parse Referer strings, based on [tagomoris/fluent-plugin-woothee](https://github.com/tagomoris/fluent-plugin-woothee).
@@ -9,8 +11,12 @@
 
 | fluent-plugin-referer-parser | fluentd     | ruby   |
 |------------------------------|-------------|--------|
-| >= 0.1.0                     | >= v0.14.15 | >= 2.1 |
+| >= 0.1.0                     | >= v0.14.15 | >= 2.4 |
 | < 0.1.0                      | >= v0.12.0  | >= 1.9 |
+
+fluent-plugin-referer-parser >= 0.1.0 works on ruby >= 2.1,
+but referer-parser(0.3.0) does not work properly for non-UTF-8 search terms with ruby < 2.4.
+You use fluent-plugin-referer-parser >= 0.1.0, so we recommend to use ruby 2.4 or later.
 
 ## Configuration
 
