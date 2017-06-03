@@ -4,6 +4,7 @@ require 'referer-parser'
 
 require 'fluent/plugin/input'
 
+# Fluent::Plugin::RefererParserFilter filters Referer strings
 class Fluent::Plugin::RefererParserFilter < Fluent::Plugin::Filter
   Fluent::Plugin.register_filter('referer_parser', self)
 
@@ -25,32 +26,35 @@ class Fluent::Plugin::RefererParserFilter < Fluent::Plugin::Filter
                         RefererParser::Parser.new
                       end
 
-    if @encodings_yaml
-      @encodings = YAML.load_file(@encodings_yaml)
-    else
-      @encodings = {}
-    end
+    @encodings = if @encodings_yaml
+                   YAML.load_file(@encodings_yaml)
+                 else
+                   {}
+                 end
   end
 
-  def filter(tag, time, record)
+  def get_search_term(search_term, uri)
+    parameters = CGI.parse(uri.query)
+    input_encoding = @encodings[uri.host] || parameters['ie'][0] || parameters['ei'][0]
+    return search_term.force_encoding(input_encoding).encode('utf-8') if input_encoding && /\Autf-?8\z/i !~ input_encoding
+    search_term
+  end
+
+  def filter(_tag, _time, record)
     begin
       parsed = @referer_parser.parse(record[@key_name])
       record[@out_key_known] = parsed[:known]
       if parsed[:known]
-        search_term = parsed[:term]
         uri = URI.parse(parsed[:uri])
-        host = uri.host
-        parameters = CGI.parse(uri.query)
-        input_encoding = @encodings[host] || parameters['ie'][0] || parameters['ei'][0]
         begin
-          search_term = search_term.force_encoding(input_encoding).encode('utf-8') if input_encoding && /\Autf-?8\z/i !~ input_encoding
+          search_term = get_search_term(parsed[:term], uri)
         rescue
+          search_term = parsed[:term]
           log.error('invalid referer: ' + uri.to_s)
         end
         record.merge!(
-          @out_key_known       => true,
           @out_key_referer     => parsed[:source],
-          @out_key_host        => host,
+          @out_key_host        => uri.host,
           @out_key_search_term => search_term
         )
       end

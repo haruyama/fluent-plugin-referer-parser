@@ -19,5 +19,6 @@ ClassLength:
   CountComments: false
   Max: 100
 
-GlobalVars:
-  AllowedVariables: [$log]
+Metrics/AbcSize:
+  Enabled: true
+  Max: 20
